@@ -2,7 +2,8 @@ import json
 from app.customer import Customer
 from app.shop import Shop
 
-def shop_trip():
+
+def shop_trip() -> None:
     with open("app/config.json") as f:
         config = json.load(f)
 
@@ -23,6 +24,6 @@ def shop_trip():
             print(f"{customer.name} doesn't have enough money to make a purchase in any shop\n")
             continue
 
-        best_shop, best_cost = min(affordable, key=lambda x: x[1])
+        best_shop, _ = min(affordable, key=lambda x: x[1])
         customer.go_to_shop(best_shop, fuel_price)
         customer.go_home(best_shop, fuel_price)

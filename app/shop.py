@@ -1,7 +1,8 @@
 from datetime import datetime
 
+
 class Shop:
-    def __init__(self, name: str, location: list, products: dict):
+    def __init__(self, name: str, location: list[float], products: dict) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -13,7 +14,12 @@ class Shop:
                 total += self.products[item] * quantity
         return total
 
-    def print_receipt(self, customer_name: str, cart: dict, timestamp: datetime = None) -> float:
+    def print_receipt(
+        self,
+        customer_name: str,
+        cart: dict,
+        timestamp: datetime | None = None
+    ) -> float:
         if timestamp is None:
             timestamp = datetime.now()
 
