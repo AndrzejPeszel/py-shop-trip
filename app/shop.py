@@ -32,7 +32,7 @@ class Shop:
             price = unit_price * quantity
             print(f"{quantity} x {item} @ ${unit_price:.2f} = ${price:.2f}")
             total += price
-        print(f"Total cost is {total:.2f} dollars")
+        print(f"Total: ${total:.2f}")
         print("See you again!")
 
         return total
