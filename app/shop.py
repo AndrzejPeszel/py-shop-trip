@@ -1,41 +1,32 @@
 from datetime import datetime
 
-
 class Shop:
-    def __init__(
-        self,
-        name: str,
-        location: list[float],
-        products: dict[str, float],
-    ) -> None:
+    def __init__(self, name: str, location: list, products: dict):
         self.name = name
         self.location = location
         self.products = products
 
-    def can_fulfill(self, product_cart: dict[str, int]) -> bool:
-        return all(product in self.products for product in product_cart)
+    def calculate_product_cost(self, cart: dict) -> float:
+        total = 0
+        for item, quantity in cart.items():
+            if item in self.products:
+                total += self.products[item] * quantity
+        return total
 
-    def calculate_product_cost(self, product_cart: dict[str, int]) -> float:
-        return sum(
-            self.products[product] * quantity
-            for product, quantity in product_cart.items()
-        )
+    def print_receipt(self, customer_name: str, cart: dict, timestamp: datetime = None) -> float:
+        if timestamp is None:
+            timestamp = datetime.now()
 
-    def print_receipt(
-        self,
-        customer_name: str,
-        product_cart: dict[str, int],
-    ) -> float:
-        print(
-            f"\nDate: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}"
-        )
+        print(f"\nDate: {timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
-        total = 0.0
-        for product, quantity in product_cart.items():
-            price = self.products[product] * quantity
-            print(f"{quantity} {product}s for {price:.2f} dollars")
+        total = 0
+        for item, quantity in cart.items():
+            unit_price = self.products[item]
+            price = unit_price * quantity
+            print(f"{quantity} x {item} @ ${unit_price:.2f} = ${price:.2f}")
             total += price
         print(f"Total cost is {total:.2f} dollars")
         print("See you again!")
+
         return total

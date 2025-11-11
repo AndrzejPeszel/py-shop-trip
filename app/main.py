@@ -2,8 +2,7 @@ import json
 from app.customer import Customer
 from app.shop import Shop
 
-
-def shop_trip() -> None:
+def shop_trip():
     with open("app/config.json") as f:
         config = json.load(f)
 
@@ -12,24 +11,18 @@ def shop_trip() -> None:
     shops = [Shop(**shop) for shop in config["shops"]]
 
     for customer in customers:
-        print(f"\n{customer.name} has {customer.money} dollars")
+        print(f"{customer.name} has {customer.money} dollars")
         shop_costs = []
         for shop in shops:
             cost = customer.trip_cost(shop, fuel_price)
-            cost = round(cost, 2)
-            print(
-                f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}"
-            )
             shop_costs.append((shop, cost))
+            print(f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}")
 
-        affordable = [
-            (shop, cost) for shop, cost in shop_costs if cost <= customer.money
-        ]
+        affordable = [(shop, cost) for shop, cost in shop_costs if customer.can_afford(cost)]
         if not affordable:
-            print(
-                f"{customer.name} doesn't have enough money to make a purchase in any shop"
-            )
+            print(f"{customer.name} doesn't have enough money to make a purchase in any shop\n")
             continue
 
-        best_shop = min(affordable, key=lambda x: x[1])[0]
-        customer.purchase(best_shop, fuel_price)
+        best_shop, best_cost = min(affordable, key=lambda x: x[1])
+        customer.go_to_shop(best_shop, fuel_price)
+        customer.go_home(best_shop, fuel_price)
