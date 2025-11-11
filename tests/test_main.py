@@ -1,5 +1,5 @@
-from app.shop import Shop
 import datetime
+from app.shop import Shop
 
 
 def test_receipt_output(capsys):
@@ -17,7 +17,7 @@ def test_receipt_output(capsys):
 
     assert total == 20.0
     assert "2023-01-01 12:00:00" in captured.out
-    assert "2 x Apple @ $3.00 = $6.00" in captured.out
-    assert "1 x Bread @ $2.00 = $2.00" in captured.out
-    assert "2 x Milk @ $6.00 = $12.00" in captured.out
-    assert "Total: $20.00" in captured.out
+    assert "2 apples for 6 dollars" in captured.out
+    assert "1 breads for 2 dollars" in captured.out
+    assert "2 milks for 12 dollars" in captured.out
+    assert "Total cost is 20.0 dollars" in captured.out
