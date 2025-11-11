@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 
 
 class Shop:
@@ -23,23 +23,20 @@ class Shop:
         self,
         customer_name: str,
         cart: dict,
-        timestamp: datetime | None = None
+        timestamp: datetime.datetime | None = None
     ) -> float:
         if timestamp is None:
-            timestamp = datetime.now()
+            timestamp = datetime.datetime.now()
 
         print(f"\nDate: {timestamp.strftime('%Y-%m-%d %H:%M:%S')}")
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
         total = 0
         for item, quantity in cart.items():
-            unit_price = self.products[item]
-            price = unit_price * quantity
-            print(
-                f"{quantity} x {item} @ ${unit_price:.2f} = ${price:.2f}"
-            )
+            price = self.products[item] * quantity
+            print(f"{quantity} {item.lower()}s for {price:.0f} dollars")
             total += price
-        print(f"Total: ${total:.2f}")
+        print(f"Total cost is {total:.1f} dollars")
         print("See you again!")
 
         return total

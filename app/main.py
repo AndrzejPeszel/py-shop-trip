@@ -33,6 +33,5 @@ def shop_trip() -> None:
             )
             continue
 
-        best_shop, _ = min(affordable, key=lambda x: x[1])
-        customer.go_to_shop(best_shop, fuel_price)
-        customer.go_home(best_shop, fuel_price)
+        best_shop, total_cost = min(affordable, key=lambda x: x[1])
+        customer.complete_trip(best_shop, fuel_price, total_cost)
