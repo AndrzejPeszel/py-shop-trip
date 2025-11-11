@@ -1,7 +1,13 @@
 from datetime import datetime
 
+
 class Shop:
-    def __init__(self, name: str, location: list[float], products: dict[str, float]):
+    def __init__(
+        self,
+        name: str,
+        location: list[float],
+        products: dict[str, float],
+    ) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -15,8 +21,14 @@ class Shop:
             for product, quantity in product_cart.items()
         )
 
-    def print_receipt(self, customer_name: str, product_cart: dict[str, int]) -> float:
-        print(f"\nDate: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}")
+    def print_receipt(
+        self,
+        customer_name: str,
+        product_cart: dict[str, int],
+    ) -> float:
+        print(
+            f"\nDate: {datetime.now().strftime('%m/%d/%Y %H:%M:%S')}"
+        )
         print(f"Thanks, {customer_name}, for your purchase!")
         print("You have bought:")
         total = 0.0
