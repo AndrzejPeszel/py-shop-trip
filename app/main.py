@@ -17,11 +17,20 @@ def shop_trip() -> None:
         for shop in shops:
             cost = customer.trip_cost(shop, fuel_price)
             shop_costs.append((shop, cost))
-            print(f"{customer.name}'s trip to the {shop.name} costs {cost:.2f}")
+            print(
+                f"{customer.name}'s trip to the {shop.name} "
+                f"costs {cost:.2f}"
+            )
 
-        affordable = [(shop, cost) for shop, cost in shop_costs if customer.can_afford(cost)]
+        affordable = [
+            (shop, cost) for shop, cost in shop_costs
+            if customer.can_afford(cost)
+        ]
         if not affordable:
-            print(f"{customer.name} doesn't have enough money to make a purchase in any shop\n")
+            print(
+                f"{customer.name} doesn't have enough money to make "
+                f"a purchase in any shop\n"
+            )
             continue
 
         best_shop, _ = min(affordable, key=lambda x: x[1])

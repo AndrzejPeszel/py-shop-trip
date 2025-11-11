@@ -2,7 +2,12 @@ from datetime import datetime
 
 
 class Shop:
-    def __init__(self, name: str, location: list[float], products: dict) -> None:
+    def __init__(
+        self,
+        name: str,
+        location: list[float],
+        products: dict
+    ) -> None:
         self.name = name
         self.location = location
         self.products = products
@@ -30,7 +35,9 @@ class Shop:
         for item, quantity in cart.items():
             unit_price = self.products[item]
             price = unit_price * quantity
-            print(f"{quantity} x {item} @ ${unit_price:.2f} = ${price:.2f}")
+            print(
+                f"{quantity} x {item} @ ${unit_price:.2f} = ${price:.2f}"
+            )
             total += price
         print(f"Total: ${total:.2f}")
         print("See you again!")
